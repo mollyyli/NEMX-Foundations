@@ -10,33 +10,33 @@
 
 * $ git branch [branch-name]
 
-Creates a new branch
+> Creates a new branch
 
 * $ git merge [branch]
 
-Combines the specified branch’s history into the
+> Combines the specified branch’s history into the
 current branch. This is usually done in pull requests,
 but is an important Git operation.
 
 * $ git checkout [branch-name]
 
-Switches to the specified branch and updates the
+> Switches to the specified branch and updates the
 working directory
 
 * $ git push
 
-Uploads all local branch commits to GitHub
+> Uploads all local branch commits to GitHub
 
 * $ git merge
 
-Combines remote tracking branch into current local branch
+> Combines remote tracking branch into current local branch
 
 * $ git fetch
 
-Downloads all history from the remote tracking branches
+> Downloads all history from the remote tracking branches
 
 * $ git pull
 
-Updates your current local working branch with all new
+> Updates your current local working branch with all new
 commits from the corresponding remote branch on GitHub.
 git pull is a combination of git fetch and git merge 
