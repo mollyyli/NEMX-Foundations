@@ -7,10 +7,13 @@
 * Xifei Wang xifeiw@uw.edu
 
 ## Basic Git Branches 
-* git merge [branch]
+* $ git merge [branch]
+
 Combines the specified branch’s history into the
 current branch. This is usually done in pull requests,
 but is an important Git operation.
+
 * $ git checkout [branch-name]
+
 Switches to the specified branch and updates the
 working directory
