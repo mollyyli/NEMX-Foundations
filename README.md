@@ -1,12 +1,21 @@
 # NEMX-Foundations
 
-## Contact Information: 
+## Problem Statement
+* Inpatient families fill out order form and receive groceries once a week; however, sometimes requested food items may not be available in stock.
+* Need to hide PII/PHI data from the order forms before they get sent to the U District Food Bank
+
+## Proposed Solution
+* Create a web application where inpatient families can easily access real-time stock availability and place specific food requests with online order forms
+* The submitted forms will automatically hide PII/PHI data from those preparing food bangs at the U District Food Bank
+
+
+## Contact Information:
 * Eric Lin chengyi9@uw.edu
 * Naveen Janarthanan navjanar@uw.edu
 * Molly Li hsin1128@uw.edu
 * Xifei Wang xifeiw@uw.edu
 
-## Basic Git 
+### Basic Git
 
 * $ git branch [branch-name]
 
@@ -39,4 +48,18 @@ working directory
 
 > Updates your current local working branch with all new
 commits from the corresponding remote branch on GitHub.
-git pull is a combination of git fetch and git merge 
+git pull is a combination of git fetch and git merge
+
+
+
+#### Glossary
+* **PII**: Personally Identifiable Information
+  * Full Name
+  * SSN
+  * Email
+  * Passport Data
+* **PHI**: Protected Health Information
+  * Demographics
+  * Medical History
+  * Insurance Information
+  * Healthcare-related Information
