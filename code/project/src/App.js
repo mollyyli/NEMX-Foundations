@@ -8,16 +8,16 @@ import { Form } from 'react-bootstrap';
 
 function App() {
   return (
-    <div>
+    <div className="test">
       <div className="wrapper">
         <div className="form-wrapper">
           <h1>Personal Information</h1>
             <form>
-              <div className="First Name">
+              <div className="firstName">
                 <label htmlFor="firstName">First Name</label>
                 <input
                   placeholder="First Name"
-                  type="text"
+                  type="firstName"
                   name="firstName"
                 />
               </div>
@@ -25,29 +25,28 @@ function App() {
                 <label htmlFor="lastName">Last Name</label>
                 <input
                   placeholder="Last Name"
-                  type="text"
+                  type="lastName"
                   name="lastName"
                 />
               </div>
-              <div className="email">
-                <label htmlFor="email">Email</label>
+              <div className="room">
+                <label htmlFor="room">Room Number</label>
                 <input
-                  placeholder="Email"
-                  type="email"
-                  name="email"
+                  placeholder="Room Number"
+                  type="room"
+                  name="room"
                 />
               </div>
-              <div className="password">
-                <label htmlFor="password">Password</label>
+              <div className="phone">
+                <label htmlFor="phone">Phone Number</label>
                 <input
-                  placeholder="Password"
-                  type="password"
-                  name="password"
+                  placeholder="Phone Number"
+                  type="phone"
+                  name="phone"
                 />
               </div>
-              <div className="createAccount">
-                <button type="submit">Create Account</button>
-                <small>Already Have an Account?</small>
+              <div className="submit">
+                <button type="submit">Submit</button>
               </div>
             </form>
           </div>
