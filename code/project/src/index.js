@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import firebase from 'firebase/app';
 
 // test
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';

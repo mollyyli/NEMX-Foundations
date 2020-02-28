@@ -1,17 +1,31 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+<<<<<<< HEAD
 //import 'bootstrap/dist/css/bootstrap.min.css';
 //import { Form } from 'react-bootstrap';
+=======
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Form } from 'react-bootstrap';
+import FrontPage from './components/frontPage'
+import firebase from 'firebase/app';
+
+>>>>>>> develop
 
 import { Component } from 'react';
 import { Preferences } from './components/Preferences.js';
 
 function App() {
   return (
+<<<<<<< HEAD
     <div className="App">
       <Preferences />
     </div>
+=======
+    <React.Fragment>
+    <FrontPage/>
+    </React.Fragment>
+>>>>>>> develop
   );
 }
 
