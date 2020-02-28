@@ -4,6 +4,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Form } from 'react-bootstrap';
 import FrontPage from './components/frontPage'
+import firebase from 'firebase/app';
 
 
 
