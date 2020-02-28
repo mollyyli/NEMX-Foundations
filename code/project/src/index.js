@@ -4,7 +4,19 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+// test
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+
+// remove for now
+//ReactDOM.render(<App />, document.getElementById('root'));
+
+// added for test
+ReactDOM.render((
+    <Router>
+        <App />
+    </Router>
+    ), document.getElementById('root')
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
