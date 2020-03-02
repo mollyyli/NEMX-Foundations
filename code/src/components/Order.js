@@ -1,17 +1,17 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// import logo from './logo.svg';
+// import './App.css';
 //import 'bootstrap/dist/css/bootstrap.min.css';
 //import { Form } from 'react-bootstrap';
 
-function App() {
+const OrderForm = () => {
   return (
     <div className="App">
 
 
       <div className="wrapper">
         <div className="form-wrapper">
-          <h1>User's Preferences</h1>
+          <h1>User's Order</h1>
             <form>
               <div className="familySize">
                 <label htmlFor="familySize">Family Size</label>
@@ -48,7 +48,7 @@ function App() {
   );
 }
 
-export default App;
+export default OrderForm;
 
 
 

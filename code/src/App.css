@@ -1,7 +1,14 @@
 .App {
-  text-align: center;
+  /* background-color: #364f6b; */
+  /* height: 100%; */
 }
-
+/* .next-button {
+  background-color: blue;
+}
+.next-button:hover {
+  background-color: aliceblue;
+} */
+/* 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -35,4 +42,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */

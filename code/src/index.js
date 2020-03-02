@@ -5,8 +5,8 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 // test
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-
+import { BrowserRouter as Router } from 'react-router-dom';
+// Route, Link
 // remove for now
 //ReactDOM.render(<App />, document.getElementById('root'));
 
