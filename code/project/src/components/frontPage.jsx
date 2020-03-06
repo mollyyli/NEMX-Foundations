@@ -1,5 +1,18 @@
 import React, { Component } from 'react';
+
+
 class FrontPage extends Component {
+    state = {
+      firstName: ""
+    }
+    handlState = e =>  {
+      this.setState({
+        firstName: e.target.value
+      });
+    }
+    handlFireBase = e => {
+      db.push(this.state)
+    }
     render() {
         return (
                 <div className="test">
@@ -21,6 +34,7 @@ class FrontPage extends Component {
                               placeholder="Last Name"
                               type="lastName"
                               name="lastName"
+                              onChange = {this.handlState}
                             />
                           </div>
                           <div className="room">
