@@ -1,21 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import * as serviceWorker from "./serviceWorker";
+/**
+ * set up redux store
+ */
+import { Provider } from "react-redux";
+import { createStore } from "redux";
+import { cartReducer } from "./redux/Reducers/cartReducers";
 
-// test
-import { BrowserRouter as Router } from 'react-router-dom';
-// Route, Link
-// remove for now
-//ReactDOM.render(<App />, document.getElementById('root'));
-
-// added for test
-ReactDOM.render((
-    <Router>
-        <App />
-    </Router>
-    ), document.getElementById('root')
+const store = createStore(cartReducer);
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change

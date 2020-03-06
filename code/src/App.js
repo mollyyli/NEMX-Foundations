@@ -1,26 +1,28 @@
-import React from 'react';
-import logo from './pics/logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import logo from "./pics/logo.svg";
+import "./App.css";
 //import 'bootstrap/dist/css/bootstrap.min.css';
 //import { Form } from 'react-bootstrap';
-import Diet from './pics/diet.svg'
-
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { loadData } from "./redux/Actions";
 // import { Component } from 'react';
-import Preferences from './components/Preferences';
-import NavBar from './components/Navbar'
+import Preferences from "./pages/Preferences";
+import Order from "./pages/Order";
 function App() {
+  const dispatch = useDispatch();
+  dispatch(loadData());
+  console.log(useSelector(state => console.log(state)));
   return (
-    <div className="App">
-      <NavBar />
-      <div style={{display: "flex", justifyContent: "space-evenly"}}>
-        <Preferences />
-        <img src={Diet} style={{marginTop: "100px"}}/>
+    <Router>
+      <div className="App">
+        <Switch>
+          <Route path="/preferences" component={Preferences} />
+          <Route path="/order" component={Order} />
+        </Switch>
       </div>
-
-    </div>
+    </Router>
   );
 }
 
 export default App;
-
-
