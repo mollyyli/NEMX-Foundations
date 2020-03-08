@@ -24,7 +24,8 @@ export default function NavBar(props) {
       {props.cart && (
         <Link href="#cart" style={{ color: "#2F2E40" }}>
           {" "}
-          <ShoppingCartIcon /> My Cart
+          <ShoppingCartIcon />{" "}
+          <span style={{ color: "#2F2E40", marginLeft: "5px" }}>My Cart</span>
         </Link>
       )}
     </Navbar>

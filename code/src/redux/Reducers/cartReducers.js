@@ -19,9 +19,9 @@ export const cartReducer = (storeData, action) => {
         items: action.payload
       };
     case ActionTypes.CART_ADD:
-      let addedItem = storeData.items.find(item => item.id === action.id);
-      let existedItem = storeData.addedItems.find(
-        item => item.id === action.id
-      );
+    // let addedItem = storeData.items.find(item => item.id === action.id);
+    // let existedItem = storeData.addedItems.find(
+    //   item => item.id === action.id
+    // );
   }
 };
