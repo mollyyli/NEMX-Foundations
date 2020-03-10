@@ -5,9 +5,7 @@ export const loadData = () => ({
   payload: data["items"]
 });
 
-export const addToCart = id => ({
+export const addToCart = addedItems => ({
   type: ActionTypes.CART_ADD,
-  payload: {
-    id
-  }
+  payload: addedItems
 });

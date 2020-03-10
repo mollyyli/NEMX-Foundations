@@ -5,6 +5,8 @@ import logo from "../pics/logo.svg";
 import LanguageIcon from "@material-ui/icons/Language";
 import Link from "@material-ui/core/Link";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import { Button } from "@material-ui/core";
+
 export default function NavBar(props) {
   return (
     <Navbar>
@@ -24,8 +26,14 @@ export default function NavBar(props) {
       {props.cart && (
         <Link href="#cart" style={{ color: "#2F2E40" }}>
           {" "}
-          <ShoppingCartIcon />{" "}
-          <span style={{ color: "#2F2E40", marginLeft: "5px" }}>My Cart</span>
+          <Button
+            variant="contained"
+            style={{ backgroundColor: "#2F2E4010" }}
+            onClick={() => props.handleSubmit()}
+          >
+            <ShoppingCartIcon />{" "}
+            <span style={{ marginLeft: "5px" }}>Submit</span>
+          </Button>
         </Link>
       )}
     </Navbar>

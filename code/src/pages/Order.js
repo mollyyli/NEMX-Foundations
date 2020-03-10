@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Emptycart from "../pics/emptycart.svg";
 import NavBar from "../components/Navbar";
 import { makeStyles } from "@material-ui/core/styles";
@@ -14,7 +14,6 @@ import Divider from "@material-ui/core/Divider";
 import Button from "@material-ui/core/Button";
 import Banana from "../pics/bana.jpg";
 import Slider from "react-slick";
-import AddIcon from "@material-ui/icons/Add";
 import Strawberry from "../pics/strawberry.png";
 import Cucumber from "../pics/cucumber.jpg";
 import Apple from "../pics/apple.jpg";
@@ -35,8 +34,14 @@ import BrusselsSprouts from "../pics/brusselssprouts.jpg";
 import Avocado from "../pics/avocade.jpg";
 import RedRadishes from "../pics/redradishes.jpg";
 import Garlic from "../pics/garlic.jpg";
-
+import AddIcon from "@material-ui/icons/Add";
+import RemoveIcon from "@material-ui/icons/Remove";
+import Modal from "@material-ui/core/Modal";
+import Backdrop from "@material-ui/core/Backdrop";
+import Fade from "@material-ui/core/Fade";
+import Confirm from "../pics/confirm.svg";
 import "./index.css";
+import Avatar from "@material-ui/core/Avatar";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -51,6 +56,7 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(3, 1, 1)
   }
 }));
+
 const settings = {
   dots: true,
   infinite: true,
@@ -60,30 +66,55 @@ const settings = {
 };
 
 const freshProduceItems = [
-  { title: "Banana", img: Banana },
-  { title: "Strawberry", img: Strawberry },
-  { title: "Cucumber", img: Cucumber },
-  { title: "Apple", img: Apple },
-  { title: "Grape", img: Grape },
-  { title: "Green Pepper", img: GreenPepper },
-  { title: "Rasberry", img: Rasberry },
-  { title: "Blackberry", img: Blackberry },
-  { title: "Broccoli", img: Broccoli },
-  { title: "Tomato", img: Tomato },
-  { title: "Red Onion", img: RedOnion },
-  { title: "Cabbage", img: Cabbage },
-  { title: "Orange", img: Orange },
-  { title: "Squash", img: Squash },
-  { title: "Kiwi", img: Kiwi },
-  { title: "Pear", img: Pear },
-  { title: "Red Beets", img: RedBeets },
-  { title: "Brussels Sprouts", img: BrusselsSprouts },
-  { title: "Avocado", img: Avocado },
-  { title: "Red Radishes", img: RedRadishes },
-  { title: "Garlic", img: Garlic },
+  { title: "Banana", img: Banana, amount: 0 },
+  { title: "Strawberry", img: Strawberry, amount: 0 },
+  { title: "Cucumber", img: Cucumber, amount: 0 },
+  { title: "Apple", img: Apple, amount: 0 },
+  { title: "Grape", img: Grape, amount: 0 },
+  { title: "Green Pepper", img: GreenPepper, amount: 0 },
+  { title: "Rasberry", img: Rasberry, amount: 0 },
+  { title: "Blackberry", img: Blackberry, amount: 0 },
+  { title: "Broccoli", img: Broccoli, amount: 0 },
+  { title: "Tomato", img: Tomato, amount: 0 },
+  { title: "Red Onion", img: RedOnion, amount: 0 },
+  { title: "Cabbage", img: Cabbage, amount: 0 },
+  { title: "Orange", img: Orange, amount: 0 },
+  { title: "Squash", img: Squash, amount: 0 },
+  { title: "Kiwi", img: Kiwi, amount: 0 },
+  { title: "Pear", img: Pear, amount: 0 },
+  { title: "Red Beets", img: RedBeets, amount: 0 },
+  { title: "Brussels Sprouts", img: BrusselsSprouts, amount: 0 },
+  { title: "Avocado", img: Avocado, amount: 0 },
+  { title: "Red Radishes", img: RedRadishes, amount: 0 },
+  { title: "Garlic", img: Garlic, amount: 0 }
 ];
+const useModalStyles = makeStyles(theme => ({
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: "2px solid #000",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3)
+  }
+}));
 
 export default function Order(props) {
+  const Modalclasses = useModalStyles();
+  const [open, setOpen] = useState(false);
+  const [cart, setCart] = useState([]);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const [items, updateItems] = useState(filterItems(freshProduceItems));
+  // const [cart, updateCart] = useState([]);
   const classes = useStyles();
   function filterItems(items) {
     let cloneItems = items.slice(0);
@@ -100,10 +131,36 @@ export default function Order(props) {
     }
     return results;
   }
+
+  let handleRemove = (arrIndex, objIndex) => {
+    let cloneArr = [...items];
+    cloneArr[arrIndex][objIndex].amount -= 1;
+    updateItems(cloneArr);
+  };
+
+  let handleAdd = (arrIndex, objIndex) => {
+    let cloneArr = [...items];
+    cloneArr[arrIndex][objIndex].amount += 1;
+    updateItems(cloneArr);
+  };
+
+  let handleSubmit = () => {
+    let cart = [];
+    items.map(arr => {
+      arr.map(item => {
+        if (item.amount !== 0) {
+          cart.push(item);
+        }
+      });
+    });
+    setCart(cart);
+    setOpen(true);
+    console.log(cart);
+  };
   return (
     //  style={{ margin: "0 40px" }}
     <div>
-      <NavBar cart={currOrders} />
+      <NavBar cart={currOrders} handleSubmit={handleSubmit} />
       <div style={{ margin: "0 40px" }}>
         <div>
           <img src={Emptycart} style={{ justify: "center", height: "300px" }} />
@@ -145,10 +202,10 @@ export default function Order(props) {
             <Divider />
 
             <Slider {...settings} style={{ paddingBottom: "20px" }}>
-              {filterItems(freshProduceItems).map(itemArr => (
+              {items.map((itemArr, arrIndex) => (
                 <div className={classes.section3}>
                   <Grid container>
-                    {itemArr.map(item => (
+                    {itemArr.map((item, objIndex) => (
                       <Grid
                         item
                         xs
@@ -168,14 +225,31 @@ export default function Order(props) {
                         <Typography gutterBottom variant="h8">
                           {item.title}
                         </Typography>
-                        <Button
-                          size="small"
-                          onClick=""
-                          color="primary"
-                          variant="outlined"
-                        >
-                          <AddIcon fontSize="small" /> Add to cart
-                        </Button>
+                        {item.amount === 0 ? (
+                          <Button
+                            size="small"
+                            onClick=""
+                            color="primary"
+                            variant="outlined"
+                            onClick={() => handleAdd(arrIndex, objIndex)}
+                          >
+                            <AddIcon fontSize="small" /> Add to cart
+                          </Button>
+                        ) : (
+                          <div>
+                            <Button
+                              onClick={() => handleRemove(arrIndex, objIndex)}
+                            >
+                              <RemoveIcon />
+                            </Button>
+                            {item.amount}
+                            <Button
+                              onClick={() => handleAdd(arrIndex, objIndex)}
+                            >
+                              <AddIcon />
+                            </Button>
+                          </div>
+                        )}
                       </Grid>
                     ))}
                   </Grid>
@@ -185,6 +259,39 @@ export default function Order(props) {
           </div>
         </div>
       </div>
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className={Modalclasses.modal}
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500
+        }}
+      >
+        <Fade in={open}>
+          <div
+            className={Modalclasses.paper}
+          >
+            <img src={Confirm} style={{ height: 150, weight: 150 }} />
+            <Typography variant="h7" id="transition-modal-title">
+              Thanks for completing the from! Your order number is: 46{" "}
+            </Typography>
+
+            <Typography varient="h7" id="transition-modal-description">
+              You have selected:
+              {cart.map(item => (
+                <div>
+                  <img src={item.img} style={{ height: 50, weight: 50 }} />
+                  {item.title} {item.amount}
+                </div>
+              ))}
+            </Typography>
+          </div>
+        </Fade>
+      </Modal>
     </div>
   );
 }
@@ -195,4 +302,5 @@ let currOrders = [
     amount: 2
   }
 ];
+
 // export default Order;
