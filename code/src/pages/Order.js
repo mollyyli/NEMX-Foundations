@@ -42,7 +42,7 @@ import Fade from "@material-ui/core/Fade";
 import Confirm from "../pics/confirm.svg";
 import "./index.css";
 import Avatar from "@material-ui/core/Avatar";
-
+var ID = null;
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
@@ -163,7 +163,8 @@ export default function Order(db) {
     }
     console.log(cart_temp)
     console.log(db);
-    db.db.push(cart_temp);
+    ID = db.db.push(cart_temp).key;
+    
   };
   return (
     //  style={{ margin: "0 40px" }}
@@ -285,7 +286,7 @@ export default function Order(db) {
           >
             <img src={Confirm} style={{ height: 150, weight: 150 }} />
             <Typography variant="h7" id="transition-modal-title">
-              Thanks for completing the from! Your order number is: 46{" "}
+              Thanks for completing the from! Your order code is {ID}
             </Typography>
 
             <Typography varient="h7" id="transition-modal-description">

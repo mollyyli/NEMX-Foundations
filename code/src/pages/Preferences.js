@@ -61,7 +61,8 @@ console.log(db)
   };
   
   const handleSubmit = event => {
-    db.push({currency, limitation, allergy, transportation});
+    var temp = db.push({currency, limitation, allergy, transportation});
+    console.log(temp.key);
   }
   return (
     <div>
