@@ -63,7 +63,7 @@ const MultilineTextFields = ({db}) => {
   const handleSubmit = event => {
     console.log("workkkkkkkkk")
     db.push({currency, limitation, allergy, transportation});
-    event.preventDefault();
+
   }
   return (
     <div>
@@ -145,6 +145,7 @@ const MultilineTextFields = ({db}) => {
             <div style={{ textAlign: "right", width: "90%" }}>
               <Link to={{pathname:'/order', state:{userID:999999}}}>
                 <Button to="/order"
+                  renderAs="button"
                   className="next-button"
                   ize="medium"
                   variant="contained"
