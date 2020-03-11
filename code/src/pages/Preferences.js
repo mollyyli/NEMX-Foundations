@@ -40,22 +40,31 @@ const MultilineTextFields = ({db}) => {
   console.log(limitation)
   const handleChange = event => {
     setCurrency(event.target.value);
+    event.preventDefault();
   };
 
   const handleLimitationChange = event => {
     setLimitation(event.target.value);
+    event.preventDefault();
   };
 
   const handleAllergyChange = event => {
     console.log(event.target);
     
     setAllergy(allergy.concat(event.target.innerText, " "));
+    event.preventDefault();
   };
 
   const handleTransportationChange = event => {
     setTransportation(event.target.value);
+    event.preventDefault();
   };
   
+  const handleSubmit = event => {
+    console.log("workkkkkkkkk")
+    db.push({currency, limitation, allergy, transportation});
+    event.preventDefault();
+  }
   return (
     <div>
       <NavBar />
@@ -134,18 +143,15 @@ const MultilineTextFields = ({db}) => {
               ))}
             </TextField>
             <div style={{ textAlign: "right", width: "90%" }}>
-              <Link to="/order">
-                <Button
+              <Link to={{pathname:'/order', state:{userID:999999}}}>
+                <Button to="/order"
                   className="next-button"
                   ize="medium"
                   variant="contained"
                   disableRipple
                   color="primary"
-                  href="#order"
                   style={{ backgroundColor: "#2F2E40" }}
-                  onClick = {
-  db.push({currency, limitation, allergy, transportation})
-}
+                  onClick= {handleSubmit}
                 >
                   Next
                 </Button>

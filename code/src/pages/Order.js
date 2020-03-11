@@ -102,7 +102,8 @@ const useModalStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Order(props) {
+export default function Order(db) {
+  console.log(db)
   const Modalclasses = useModalStyles();
   const [open, setOpen] = useState(false);
   const [cart, setCart] = useState([]);
@@ -156,6 +157,8 @@ export default function Order(props) {
     setCart(cart);
     setOpen(true);
     console.log(cart);
+    console.log(db);
+    // db.push({1,2,3});
   };
   return (
     //  style={{ margin: "0 40px" }}

@@ -18,8 +18,8 @@ const App = ({db}) => {
     <Router>
       <div className="App">
         <Switch>    
-          <Route path="/preferences" component={() => <Preferences db = {db} />} />
-          <Route path="/order" component={Order} />
+          <Route path="/" exact component={() => <Preferences db = {db} />} />
+          <Route path="/order" exact component={() => <Order db = {db} />} />
         </Switch>
       </div>
     </Router>
