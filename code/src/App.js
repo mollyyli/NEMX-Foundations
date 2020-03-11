@@ -9,15 +9,16 @@ import { loadData } from "./redux/Actions";
 // import { Component } from 'react';
 import Preferences from "./pages/Preferences";
 import Order from "./pages/Order";
-function App() {
+const App = ({db}) => {
   const dispatch = useDispatch();
   dispatch(loadData());
   console.log(useSelector(state => console.log(state)));
+  console.log(db)
   return (
     <Router>
       <div className="App">
-        <Switch>
-          <Route path="/preferences" component={Preferences} />
+        <Switch>    
+          <Route path="/preferences" component={() => <Preferences db = {db} />} />
           <Route path="/order" component={Order} />
         </Switch>
       </div>

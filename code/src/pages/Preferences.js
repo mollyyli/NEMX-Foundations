@@ -28,13 +28,16 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function MultilineTextFields(props) {
+const MultilineTextFields = ({db}) => {
+  console.log("asdadasd")
+
   const classes = useStyles();
   const [currency, setCurrency] = React.useState("");
   const [limitation, setLimitation] = React.useState("");
   const [allergy, setAllergy] = React.useState("");
   const [transportation, setTransportation] = React.useState("");
-
+  console.log(allergy)
+  console.log(limitation)
   const handleChange = event => {
     setCurrency(event.target.value);
   };
@@ -44,13 +47,15 @@ export default function MultilineTextFields(props) {
   };
 
   const handleAllergyChange = event => {
-    setAllergy(event.target.value);
+    console.log(event.target);
+    
+    setAllergy(allergy.concat(event.target.innerText, " "));
   };
 
   const handleTransportationChange = event => {
     setTransportation(event.target.value);
   };
-
+  
   return (
     <div>
       <NavBar />
@@ -98,6 +103,7 @@ export default function MultilineTextFields(props) {
               multiple
               id="tags-outlined"
               options={allergies}
+              onChange = {handleAllergyChange}
               getOptionLabel={option => option.label}
               // defaultValue={[top100Films[13]]}
               filterSelectedOptions
@@ -107,6 +113,8 @@ export default function MultilineTextFields(props) {
                   variant="outlined"
                   label="Allergies"
                   placeholder="Tell us about your allergies"
+                  value = {allergy}
+
                 />
               )}
             />
@@ -135,6 +143,9 @@ export default function MultilineTextFields(props) {
                   color="primary"
                   href="#order"
                   style={{ backgroundColor: "#2F2E40" }}
+                  onClick = {
+  db.push({currency, limitation, allergy, transportation})
+}
                 >
                   Next
                 </Button>
@@ -254,3 +265,5 @@ const transportations = [
     label: "Walk"
   }
 ];
+
+export default MultilineTextFields
