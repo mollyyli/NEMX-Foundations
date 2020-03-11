@@ -157,8 +157,13 @@ export default function Order(db) {
     setCart(cart);
     setOpen(true);
     console.log(cart);
+    var cart_temp = {};
+    for ( let i = 0; i < cart.length; i++) {
+      cart_temp[cart[i]["title"]] = cart[i]["amount"]
+    }
+    console.log(cart_temp)
     console.log(db);
-    // db.push({1,2,3});
+    db.db.push(cart_temp);
   };
   return (
     //  style={{ margin: "0 40px" }}

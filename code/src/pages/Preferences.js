@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const MultilineTextFields = ({db}) => {
-  console.log("asdadasd")
+console.log(db)
 
   const classes = useStyles();
   const [currency, setCurrency] = React.useState("");
@@ -61,9 +61,7 @@ const MultilineTextFields = ({db}) => {
   };
   
   const handleSubmit = event => {
-    console.log("workkkkkkkkk")
     db.push({currency, limitation, allergy, transportation});
-
   }
   return (
     <div>
