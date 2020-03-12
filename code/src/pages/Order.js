@@ -66,27 +66,27 @@ const settings = {
 };
 
 const freshProduceItems = [
-  { title: "Banana", img: Banana, amount: 0 },
-  { title: "Strawberry", img: Strawberry, amount: 0 },
-  { title: "Cucumber", img: Cucumber, amount: 0 },
-  { title: "Apple", img: Apple, amount: 0 },
-  { title: "Grape", img: Grape, amount: 0 },
-  { title: "Green Pepper", img: GreenPepper, amount: 0 },
-  { title: "Rasberry", img: Rasberry, amount: 0 },
-  { title: "Blackberry", img: Blackberry, amount: 0 },
-  { title: "Broccoli", img: Broccoli, amount: 0 },
-  { title: "Tomato", img: Tomato, amount: 0 },
-  { title: "Red Onion", img: RedOnion, amount: 0 },
-  { title: "Cabbage", img: Cabbage, amount: 0 },
-  { title: "Orange", img: Orange, amount: 0 },
-  { title: "Squash", img: Squash, amount: 0 },
-  { title: "Kiwi", img: Kiwi, amount: 0 },
-  { title: "Pear", img: Pear, amount: 0 },
-  { title: "Red Beets", img: RedBeets, amount: 0 },
-  { title: "Brussels Sprouts", img: BrusselsSprouts, amount: 0 },
-  { title: "Avocado", img: Avocado, amount: 0 },
-  { title: "Red Radishes", img: RedRadishes, amount: 0 },
-  { title: "Garlic", img: Garlic, amount: 0 }
+  { title: "Banana", img: Banana, amount: 0, quantity: 0 },
+  { title: "Strawberry", img: Strawberry, amount: 0, quantity: 1 },
+  { title: "Cucumber", img: Cucumber, amount: 0, quantity: 1 },
+  { title: "Apple", img: Apple, amount: 0, quantity: 0 },
+  { title: "Grape", img: Grape, amount: 0, quantity: 1 },
+  { title: "Green Pepper", img: GreenPepper, amount: 0, quantity: 0 },
+  { title: "Rasberry", img: Rasberry, amount: 0, quantity: 1 },
+  { title: "Blackberry", img: Blackberry, amount: 0, quantity: 1 },
+  { title: "Broccoli", img: Broccoli, amount: 0, quantity: 1 },
+  { title: "Tomato", img: Tomato, amount: 0, quantity: 1 },
+  { title: "Red Onion", img: RedOnion, amount: 0, quantity: 1 },
+  { title: "Cabbage", img: Cabbage, amount: 0, quantity: 1 },
+  { title: "Orange", img: Orange, amount: 0, quantity: 1 },
+  { title: "Squash", img: Squash, amount: 0, quantity: 1 },
+  { title: "Kiwi", img: Kiwi, amount: 0, quantity: 1 },
+  { title: "Pear", img: Pear, amount: 0, quantity: 1 },
+  { title: "Red Beets", img: RedBeets, amount: 0, quantity: 1 },
+  { title: "Brussels Sprouts", img: BrusselsSprouts, amount: 0, quantity: 1 },
+  { title: "Avocado", img: Avocado, amount: 0, quantity: 1 },
+  { title: "Red Radishes", img: RedRadishes, amount: 0, quantity: 1 },
+  { title: "Garlic", img: Garlic, amount: 0, quantity: 0 }
 ];
 const useModalStyles = makeStyles(theme => ({
   modal: {
@@ -122,15 +122,27 @@ export default function Order(props) {
     while (cloneItems.length >= 7) {
       let itemArr = [];
       for (var i = 0; i < 7; i++) {
-        itemArr.push(cloneItems.shift());
+        var obj = cloneItems.shift();
+        if (obj.quantity > 0) {
+          itemArr.push(obj);
+        } else {
+          i--;
+        }
       }
       results.push(itemArr);
     }
-    if (cloneItems.length < 0) {
+    if (cloneItems.length > 0) {
       results.push(cloneItems);
     }
     return results;
   }
+
+  // let checkAmount = (arrIndex, objIndex) => {
+  //   let cloneArr = [...items];
+  //   if (cloneArr[arrIndex][objIndex].amount > 0) {
+  //     updateItems(cloneArr);
+  //   }
+  // };
 
   let handleRemove = (arrIndex, objIndex) => {
     let cloneArr = [...items];
@@ -245,6 +257,7 @@ export default function Order(props) {
                             {item.amount}
                             <Button
                               onClick={() => handleAdd(arrIndex, objIndex)}
+                              // {item.amount > item.quantity ? disabled : ""}
                             >
                               <AddIcon />
                             </Button>
@@ -272,9 +285,7 @@ export default function Order(props) {
         }}
       >
         <Fade in={open}>
-          <div
-            className={Modalclasses.paper}
-          >
+          <div className={Modalclasses.paper}>
             <img src={Confirm} style={{ height: 150, weight: 150 }} />
             <Typography variant="h7" id="transition-modal-title">
               Thanks for completing the from! Your order number is: 46{" "}
