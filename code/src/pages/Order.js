@@ -66,27 +66,27 @@ const settings = {
 };
 
 const freshProduceItems = [
-  { title: "Banana", img: Banana, amount: 0 },
-  { title: "Strawberry", img: Strawberry, amount: 0 },
-  { title: "Cucumber", img: Cucumber, amount: 0 },
-  { title: "Apple", img: Apple, amount: 0 },
-  { title: "Grape", img: Grape, amount: 0 },
-  { title: "Green Pepper", img: GreenPepper, amount: 0 },
-  { title: "Rasberry", img: Rasberry, amount: 0 },
-  { title: "Blackberry", img: Blackberry, amount: 0 },
-  { title: "Broccoli", img: Broccoli, amount: 0 },
-  { title: "Tomato", img: Tomato, amount: 0 },
-  { title: "Red Onion", img: RedOnion, amount: 0 },
-  { title: "Cabbage", img: Cabbage, amount: 0 },
-  { title: "Orange", img: Orange, amount: 0 },
-  { title: "Squash", img: Squash, amount: 0 },
-  { title: "Kiwi", img: Kiwi, amount: 0 },
-  { title: "Pear", img: Pear, amount: 0 },
-  { title: "Red Beets", img: RedBeets, amount: 0 },
-  { title: "Brussels Sprouts", img: BrusselsSprouts, amount: 0 },
-  { title: "Avocado", img: Avocado, amount: 0 },
-  { title: "Red Radishes", img: RedRadishes, amount: 0 },
-  { title: "Garlic", img: Garlic, amount: 0 }
+  { title: "Banana", img: Banana, amount: 0, quantity:0 },
+  { title: "Strawberry", img: Strawberry, amount: 0, quantity:10 },
+  { title: "Cucumber", img: Cucumber, amount: 0, quantity:10 },
+  { title: "Apple", img: Apple, amount: 0, quantity:0 },
+  { title: "Grape", img: Grape, amount: 0, quantity:10},
+  { title: "Green Pepper", img: GreenPepper, amount: 0, quantity:10 },
+  { title: "Rasberry", img: Rasberry, amount: 0, quantity:10},
+  { title: "Blackberry", img: Blackberry, amount: 0, quantity:10 },
+  { title: "Broccoli", img: Broccoli, amount: 0, quantity:10 },
+  { title: "Tomato", img: Tomato, amount: 0, quantity:10},
+  { title: "Red Onion", img: RedOnion, amount: 0, quantity:10 },
+  { title: "Cabbage", img: Cabbage, amount: 0, quantity:10},
+  { title: "Orange", img: Orange, amount: 0, quantity:10},
+  { title: "Squash", img: Squash, amount: 0, quantity:10 },
+  { title: "Kiwi", img: Kiwi, amount: 0, quantity:10 },
+  { title: "Pear", img: Pear, amount: 0, quantity:10 },
+  { title: "Red Beets", img: RedBeets, amount: 0, quantity:10 },
+  { title: "Brussels Sprouts", img: BrusselsSprouts, amount: 0, quantity:10 },
+  { title: "Avocado", img: Avocado, amount: 0, quantity:10},
+  { title: "Red Radishes", img: RedRadishes, amount: 0, quantity:10 },
+  { title: "Garlic", img: Garlic, amount: 9999999, quantity:10 }
 ];
 const useModalStyles = makeStyles(theme => ({
   modal: {
@@ -103,7 +103,8 @@ const useModalStyles = makeStyles(theme => ({
 }));
 
 export default function Order(db) {
-  console.log(db)
+  db.db.child("/inventory").remove();
+  db.db.child("/inventory").update(freshProduceItems);
   const Modalclasses = useModalStyles();
   const [open, setOpen] = useState(false);
   const [cart, setCart] = useState([]);
