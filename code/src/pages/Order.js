@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import Emptycart from "../pics/emptycart.svg";
 import NavBar from "../components/Navbar";
 import { makeStyles } from "@material-ui/core/styles";
@@ -42,6 +42,8 @@ import Fade from "@material-ui/core/Fade";
 import Confirm from "../pics/confirm.svg";
 import "./index.css";
 import Avatar from "@material-ui/core/Avatar";
+
+
 var ID = null;
 const useStyles = makeStyles(theme => ({
   root: {
@@ -66,28 +68,45 @@ const settings = {
 };
 
 const freshProduceItems = [
-  { title: "Banana", img: Banana, amount: 0 },
-  { title: "Strawberry", img: Strawberry, amount: 0 },
-  { title: "Cucumber", img: Cucumber, amount: 0 },
-  { title: "Apple", img: Apple, amount: 0 },
-  { title: "Grape", img: Grape, amount: 0 },
-  { title: "Green Pepper", img: GreenPepper, amount: 0 },
-  { title: "Rasberry", img: Rasberry, amount: 0 },
-  { title: "Blackberry", img: Blackberry, amount: 0 },
-  { title: "Broccoli", img: Broccoli, amount: 0 },
-  { title: "Tomato", img: Tomato, amount: 0 },
-  { title: "Red Onion", img: RedOnion, amount: 0 },
-  { title: "Cabbage", img: Cabbage, amount: 0 },
-  { title: "Orange", img: Orange, amount: 0 },
-  { title: "Squash", img: Squash, amount: 0 },
-  { title: "Kiwi", img: Kiwi, amount: 0 },
-  { title: "Pear", img: Pear, amount: 0 },
-  { title: "Red Beets", img: RedBeets, amount: 0 },
-  { title: "Brussels Sprouts", img: BrusselsSprouts, amount: 0 },
-  { title: "Avocado", img: Avocado, amount: 0 },
-  { title: "Red Radishes", img: RedRadishes, amount: 0 },
-  { title: "Garlic", img: Garlic, amount: 0 }
+  { title: "Banana", img: Banana, amount: 0, quantity: 0 },
+  { title: "Strawberry", img: Strawberry, amount: 0, quantity: 10 },
+  { title: "Cucumber", img: Cucumber, amount: 0, quantity: 10 },
+  { title: "Apple", img: Apple, amount: 0, quantity: 0 },
+  { title: "Grape", img: Grape, amount: 0, quantity: 10 },
+  { title: "Green Pepper", img: GreenPepper, amount: 0, quantity: 0 },
+  { title: "Rasberry", img: Rasberry, amount: 0, quantity: 10 },
+  { title: "Blackberry", img: Blackberry, amount: 0, quantity: 10 },
+  { title: "Broccoli", img: Broccoli, amount: 0, quantity: 10 },
+  { title: "Tomato", img: Tomato, amount: 0, quantity: 10 },
+  { title: "Red Onion", img: RedOnion, amount: 0, quantity: 10 },
+  { title: "Cabbage", img: Cabbage, amount: 0, quantity: 10 },
+  { title: "Orange", img: Orange, amount: 0, quantity: 10 },
+  { title: "Squash", img: Squash, amount: 0, quantity: 10 },
+  { title: "Kiwi", img: Kiwi, amount: 0, quantity: 10 },
+  { title: "Pear", img: Pear, amount: 0, quantity: 10 },
+  { title: "Red Beets", img: RedBeets, amount: 0, quantity: 10 },
+  { title: "Brussels Sprouts", img: BrusselsSprouts, amount: 0, quantity: 10 },
+  { title: "Avocado", img: Avocado, amount: 0, quantity: 10 },
+  { title: "Red Radishes", img: RedRadishes, amount: 0, quantity: 10 },
+  { title: "Garlic", img: Garlic, amount: 0, quantity: 0 }
 ];
+
+// for test adding items via DB
+//const freshProduceItems = [
+//  { title: "Garlic", img: Garlic, amount: 0, quantity: 0 }
+//]
+
+// want to use this:
+//var freshProduceItems = []
+
+//console.log("Naveen Test:")
+//console.log(freshProduceItems);
+
+//var newItem = { title: "Red Radishes", img: RedRadishes, amount: 0, quantity: 10 }
+//freshProduceItems.push(newItem);
+//console.log(freshProduceItems);
+
+
 const useModalStyles = makeStyles(theme => ({
   modal: {
     display: "flex",
@@ -103,7 +122,29 @@ const useModalStyles = makeStyles(theme => ({
 }));
 
 export default function Order(db) {
-  console.log(db)
+  //db.db.child("/inventory").remove();
+  //db.db.child("/inventory").update(freshProduceItems);
+
+  // Code to extract the inventory from the database to this file
+  useEffect(()=>{
+    db.db.child("/inventory").on("value", function(snapshot) {
+      for (var i = 0; i < snapshot.numChildren(); i++) {
+        db.db.child("/inventory").child(i).on('value', function(dataSnapshot) {
+
+          var newItem = { title: dataSnapshot.val().title, img: dataSnapshot.val().img, 
+            amount: dataSnapshot.val().amount, quantity: dataSnapshot.val().quantity }
+          console.log(newItem);
+          freshProduceItems.push(newItem);
+          console.log("Update: " + freshProduceItems);
+        });
+      }
+    })    
+  },[db]);
+  
+  //console.log("Fresh produce items: " + freshProduceItems);
+  
+
+
   const Modalclasses = useModalStyles();
   const [open, setOpen] = useState(false);
   const [cart, setCart] = useState([]);
@@ -123,11 +164,17 @@ export default function Order(db) {
     while (cloneItems.length >= 7) {
       let itemArr = [];
       for (var i = 0; i < 7; i++) {
-        itemArr.push(cloneItems.shift());
+        //itemArr.push(cloneItems.shift());
+        var obj = cloneItems.shift();
+        if (obj.quantity > 0) {
+          itemArr.push(obj);
+        } else {
+          i--;
+        }
       }
       results.push(itemArr);
     }
-    if (cloneItems.length < 0) {
+    if (cloneItems.length > 0) {
       results.push(cloneItems);
     }
     return results;
@@ -281,9 +328,7 @@ export default function Order(db) {
         }}
       >
         <Fade in={open}>
-          <div
-            className={Modalclasses.paper}
-          >
+            <div className={Modalclasses.paper}>
             <img src={Confirm} style={{ height: 150, weight: 150 }} />
             <Typography variant="h7" id="transition-modal-title">
               Thanks for completing the from! Your order code is {ID}
