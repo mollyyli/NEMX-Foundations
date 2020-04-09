@@ -9,7 +9,7 @@ import Diet from "../pics/diet.svg";
 import { Link } from "react-router-dom";
 import NavBar from "../components/Navbar";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: "white",
     width: "600px",
@@ -20,12 +20,12 @@ const useStyles = makeStyles(theme => ({
     // position: "absolute",
     "& .MuiTextField-root": {
       margin: theme.spacing(1),
-      width: 450
+      width: 450,
     },
     "& > * + *": {
-      marginTop: theme.spacing(3)
-    }
-  }
+      marginTop: theme.spacing(3),
+    },
+  },
 }));
 
 export default function MultilineTextFields(props) {
@@ -35,19 +35,19 @@ export default function MultilineTextFields(props) {
   const [allergy, setAllergy] = React.useState("");
   const [transportation, setTransportation] = React.useState("");
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     setCurrency(event.target.value);
   };
 
-  const handleLimitationChange = event => {
+  const handleLimitationChange = (event) => {
     setLimitation(event.target.value);
   };
 
-  const handleAllergyChange = event => {
+  const handleAllergyChange = (event) => {
     setAllergy(event.target.value);
   };
 
-  const handleTransportationChange = event => {
+  const handleTransportationChange = (event) => {
     setTransportation(event.target.value);
   };
 
@@ -61,7 +61,10 @@ export default function MultilineTextFields(props) {
             <b>Tell us about your family.</b>
           </h2>
           <h4>~some catching phrase here~</h4>
+
           <div>
+            <TextField id="filled-basic" label="Name" />
+
             <TextField
               // error
               // color="secondary"
@@ -73,7 +76,7 @@ export default function MultilineTextFields(props) {
               helperText="Please select your family size"
               variant="outlined"
             >
-              {currencies.map(option => (
+              {currencies.map((option) => (
                 <MenuItem key={option.value} value={option.value}>
                   {option.label}
                 </MenuItem>
@@ -88,7 +91,7 @@ export default function MultilineTextFields(props) {
               helperText="Please select your dietary limitation"
               variant="outlined"
             >
-              {limitations.map(option => (
+              {limitations.map((option) => (
                 <MenuItem key={option.value} value={option.value}>
                   {option.label}
                 </MenuItem>
@@ -98,10 +101,10 @@ export default function MultilineTextFields(props) {
               multiple
               id="tags-outlined"
               options={allergies}
-              getOptionLabel={option => option.label}
+              getOptionLabel={(option) => option.label}
               // defaultValue={[top100Films[13]]}
               filterSelectedOptions
-              renderInput={params => (
+              renderInput={(params) => (
                 <TextField
                   {...params}
                   variant="outlined"
@@ -119,7 +122,7 @@ export default function MultilineTextFields(props) {
               helperText="Please select your trasportation method"
               variant="outlined"
             >
-              {transportations.map(option => (
+              {transportations.map((option) => (
                 <MenuItem key={option.value} value={option.value}>
                   {option.label}
                 </MenuItem>
@@ -151,106 +154,106 @@ export default function MultilineTextFields(props) {
 const currencies = [
   {
     value: "ONE",
-    label: "1"
+    label: "1",
   },
   {
     value: "TWO",
-    label: "2"
+    label: "2",
   },
   {
     value: "THREE",
-    label: "3"
+    label: "3",
   },
   {
     value: "FOUR",
-    label: "4"
+    label: "4",
   },
   {
     value: "FIVE",
-    label: "5"
+    label: "5",
   },
   {
     value: "SIX",
-    label: "6"
-  }
+    label: "6",
+  },
 ];
 const limitations = [
   {
     value: "Lactose Intolerance",
-    label: "Lactose Intolerance"
+    label: "Lactose Intolerance",
   },
   {
     value: "Vegan",
-    label: "Vegan"
+    label: "Vegan",
   },
   {
     value: "PESCETARIAN",
-    label: "Pescetarian"
+    label: "Pescetarian",
   },
   {
     value: "OVO",
-    label: "Ovo-Vegetarian"
+    label: "Ovo-Vegetarian",
   },
   {
     value: "LACTOV",
-    label: "Lacto-Vegetarian"
-  }
+    label: "Lacto-Vegetarian",
+  },
 ];
 
 const allergies = [
   {
     value: "PEANUT",
-    label: "Peanut"
+    label: "Peanut",
   },
   {
     value: "MILK",
-    label: "Milk"
+    label: "Milk",
   },
   {
     value: "EGG",
-    label: "Egg"
+    label: "Egg",
   },
   {
     value: "WHEAT",
-    label: "Wheat"
+    label: "Wheat",
   },
   {
     value: "SOY",
-    label: "Soy"
+    label: "Soy",
   },
   {
     value: "FISH",
-    label: "Fish"
+    label: "Fish",
   },
   {
     value: "SHELLFISH",
-    label: "Shellfish"
+    label: "Shellfish",
   },
   {
     value: "NONE",
-    label: "None"
-  }
+    label: "None",
+  },
 ];
 
 const transportations = [
   {
     value: "CAR",
-    label: "Car"
+    label: "Car",
   },
   {
     value: "BUS",
-    label: "Bus"
+    label: "Bus",
   },
   {
     value: "LIGHT RAIL",
-    label: "Light Rail"
+    label: "Light Rail",
   },
   {
     value: "RIDE SHARING",
-    label: "Uber or Lyft"
+    label: "Uber or Lyft",
   },
   {
     value: "WALK",
-    label: "Walk"
-  }
+    label: "Walk",
+  },
 ];
