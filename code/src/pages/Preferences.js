@@ -26,17 +26,29 @@ const useStyles = makeStyles((theme) => ({
       marginTop: theme.spacing(3),
     },
   },
+  rootTextField: { display: "flex", flexWrap: "wrap" },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: "25ch",
+  },
 }));
 
 export default function MultilineTextFields(props) {
   const classes = useStyles();
   const [currency, setCurrency] = React.useState("");
+  const [age, setAge] = React.useState("");
+
   const [limitation, setLimitation] = React.useState("");
   const [allergy, setAllergy] = React.useState("");
   const [transportation, setTransportation] = React.useState("");
 
   const handleChange = (event) => {
     setCurrency(event.target.value);
+  };
+
+  const handleAgeChange = (event) => {
+    setAge(event.target.value);
   };
 
   const handleLimitationChange = (event) => {
@@ -63,7 +75,22 @@ export default function MultilineTextFields(props) {
           <h4>~some catching phrase here~</h4>
 
           <div>
-            <TextField id="filled-basic" label="Name" />
+            <TextField
+              id="margin-none"
+              className={classes.textField}
+              label="First Name"
+            />
+            <TextField
+              id="margin-none"
+              className={classes.textField}
+              label="Middle Name"
+            />
+            <TextField
+              id="margin-none"
+              className={classes.textField}
+              label="Last Name"
+            />
+            <TextField id="filled-basic" label="Medical Record Number" />
 
             <TextField
               // error
@@ -82,6 +109,37 @@ export default function MultilineTextFields(props) {
                 </MenuItem>
               ))}
             </TextField>
+            <Autocomplete
+              multiple
+              id="tags-outlined"
+              options={ages}
+              getOptionLabel={(option) => option.label}
+              // defaultValue={[top100Films[13]]}
+              filterSelectedOptions
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  variant="outlined"
+                  label="Age of each family member"
+                  placeholder="Tell us about your age groups"
+                />
+              )}
+            />
+            {/* <TextField
+              id="standard-select-currency-native"
+              select
+              label="Age of each family member"
+              value={age}
+              onChange={handleAgeChange}
+              helperText="Please select your age group"
+              variant="outlined"
+            >
+              {ages.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField> */}
             <TextField
               id="standard-select-currency-native"
               select
@@ -128,6 +186,11 @@ export default function MultilineTextFields(props) {
                 </MenuItem>
               ))}
             </TextField>
+            <TextField
+              id="margin-none"
+              className={classes.textField}
+              label="Clinic"
+            />
             <div style={{ textAlign: "right", width: "90%" }}>
               <Link to="/order">
                 <Button
@@ -199,7 +262,24 @@ const limitations = [
     label: "Lacto-Vegetarian",
   },
 ];
-
+const ages = [
+  {
+    value: "0 - 2",
+    label: "0 - 2",
+  },
+  {
+    value: "3 - 18",
+    label: "3 - 18",
+  },
+  {
+    value: "19 - 54",
+    label: "19 - 54",
+  },
+  {
+    value: "55+",
+    label: "55+",
+  },
+];
 const allergies = [
   {
     value: "PEANUT",
