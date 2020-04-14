@@ -73,7 +73,7 @@ console.log(db)
           <h2>
             <b>Tell us about your family.</b>
           </h2>
-          <h4>~some catching phrase here~</h4>
+          <h4>Please complete the following information so we can best meet your needs.</h4>
           <div>
             <TextField
               // error
