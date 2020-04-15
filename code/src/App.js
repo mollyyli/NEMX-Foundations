@@ -9,6 +9,7 @@ import { loadData } from "./redux/Actions";
 // import { Component } from 'react';
 import Preferences from "./pages/Preferences";
 import Order from "./pages/Order";
+import Admin from "./pages/Admin";
 const App = ({db}) => {
   const dispatch = useDispatch();
   dispatch(loadData());
@@ -20,6 +21,7 @@ const App = ({db}) => {
         <Switch>    
           <Route path="/" exact component={() => <Preferences db = {db} />} />
           <Route path="/order" exact component={() => <Order db = {db} />} />
+          <Route path="/admin" component={Admin} />
         </Switch>
       </div>
     </Router>
