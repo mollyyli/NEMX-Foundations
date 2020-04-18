@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MultilineTextFields(props) {
+const MultilineTextFields = ({db})=> {
   const classes = useStyles();
   const [currency, setCurrency] = React.useState("");
   const [age, setAge] = React.useState("");
@@ -337,3 +337,4 @@ const transportations = [
     label: "Walk",
   },
 ];
+export default MultilineTextFields
