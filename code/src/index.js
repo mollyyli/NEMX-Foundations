@@ -21,7 +21,7 @@ const firebaseConfig = {
   measurementId: "G-DQ9MSL7NED"
 };
 firebase.initializeApp(firebaseConfig);
-var ref = firebase.database().ref();
+var ref = firebase.database();
 console.log(ref)
 const store = createStore(cartReducer);
 ReactDOM.render(

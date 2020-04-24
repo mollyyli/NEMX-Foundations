@@ -98,7 +98,7 @@ const MultilineTextFields = ({db})=> {
   };
 
   const handleSubmit = event => {
-    var temp = db.push({first,last,middle, age, recordNum, clinic, currency, limitation, allergy, transportation});
+    var temp = db.ref().push({first,last,middle, age, recordNum, clinic, currency, limitation, allergy, transportation});
     console.log(temp.key);
   }
 

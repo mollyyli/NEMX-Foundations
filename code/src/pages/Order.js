@@ -47,7 +47,7 @@ const settings = {
 };
 
 // import data from json file
-var freshProduceItems = require('../data/fresh_produce_inventory.json');
+var freshProduceItems
 var meatProteinItems = require('../data/meat_and_protein_inventory.json');
 var grainsBreadsItems = require('../data/grains_and_breads_inventory.json');
 var drinksDairyItems = require('../data/drinks_and_dairy_inventory.json');
@@ -81,6 +81,14 @@ const useModalStyles = makeStyles(theme => ({
 }));
 
 export default function Order(db) {
+  console.log(db)
+  var fresh = db.db.ref("fresh")
+  fresh.on("value", function(snapshot) {
+    console.log(snapshot.val());
+    freshProduceItems = snapshot.val();
+  })
+  console.log(freshProduceItems);
+  console.log("testtttttttt")
   //db.db.child("/inventory").remove();
   //db.db.child("/inventory").update(freshProduceItems);
 
