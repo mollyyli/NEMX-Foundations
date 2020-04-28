@@ -12,7 +12,7 @@ import { flexbox } from "@material-ui/system";
 export default function NavBar(props) {
   return (
     <Navbar>
-      <Nav.Link href="#AboutUs">
+      <Nav.Link href="https://nemx.carrd.co/">
         <img src={logo} style={{ width: 140, height: 90 }} />
       </Nav.Link>
       {/* <div flexDirection="row-reverse" justifyContent="flex-end"> */}

@@ -34,34 +34,73 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MultilineTextFields(props) {
+const MultilineTextFields = ({db})=> {
   const classes = useStyles();
   const [currency, setCurrency] = React.useState("");
   const [age, setAge] = React.useState("");
-
+  const [first, setFirst] = React.useState("");
+  const [middle, setMiddle] = React.useState("");
+  const [last, setLast] = React.useState("");
+  const [recordNum, setRecordNum] = React.useState("");
+  const [clinic, setClinic] = React.useState("");
   const [limitation, setLimitation] = React.useState("");
   const [allergy, setAllergy] = React.useState("");
   const [transportation, setTransportation] = React.useState("");
 
   const handleChange = (event) => {
     setCurrency(event.target.value);
+    event.preventDefault();
   };
 
+  const handleFirst = (event) => {
+    setFirst(event.target.value);
+    event.preventDefault();
+  }
+  const handleMiddle = (event) => {
+    setMiddle(event.target.value);
+    event.preventDefault();
+  }
+  const handleLast = (event) => {
+    setLast(event.target.value);
+    event.preventDefault();
+  }
+  const handleRecordNum = (event) => {
+    setRecordNum(event.target.value);
+    event.preventDefault();
+  }
   const handleAgeChange = (event) => {
     setAge(event.target.value);
+    event.preventDefault();
+  };
+
+  const handleClinic= (event) => {
+    setClinic(event.target.value);
+    event.preventDefault();
   };
 
   const handleLimitationChange = (event) => {
     setLimitation(event.target.value);
+    event.preventDefault();
   };
 
   const handleAllergyChange = (event) => {
-    setAllergy(event.target.value);
+    setAllergy(allergy.concat(event.target.innerText, " "));
+    event.preventDefault();
+  };
+  const handleAge = (event) => {
+    setAge(age.concat(event.target.innerText, ", "));
+    event.preventDefault();
   };
 
   const handleTransportationChange = (event) => {
     setTransportation(event.target.value);
+    event.preventDefault();
   };
+
+  const handleSubmit = event => {
+    var temp = db.push({first,last,middle, age, recordNum, clinic, currency, limitation, allergy, transportation});
+    console.log(temp.key);
+  }
 
   return (
     <div>
@@ -72,25 +111,28 @@ export default function MultilineTextFields(props) {
           <h2>
             <b>Tell us about your family.</b>
           </h2>
-          <h4>~some catching phrase here~</h4>
+          <h4>Please complete the following information so we can best meet your needs.</h4>
 
           <div>
             <TextField
               id="margin-none"
               className={classes.textField}
               label="First Name"
+              onChange = {handleFirst}
             />
             <TextField
               id="margin-none"
               className={classes.textField}
               label="Middle Name"
+              onChange = {handleMiddle}
             />
             <TextField
               id="margin-none"
               className={classes.textField}
               label="Last Name"
+              onChange = {handleLast}
             />
-            <TextField id="filled-basic" label="Medical Record Number" />
+            <TextField id="filled-basic" label="Medical Record Number" onChange = {handleRecordNum}/>
 
             <TextField
               // error
@@ -113,6 +155,7 @@ export default function MultilineTextFields(props) {
               multiple
               id="tags-outlined"
               options={ages}
+              onChange = {handleAge}
               getOptionLabel={(option) => option.label}
               // defaultValue={[top100Films[13]]}
               filterSelectedOptions
@@ -159,6 +202,7 @@ export default function MultilineTextFields(props) {
               multiple
               id="tags-outlined"
               options={allergies}
+              onChange = {handleAllergyChange}
               getOptionLabel={(option) => option.label}
               // defaultValue={[top100Films[13]]}
               filterSelectedOptions
@@ -168,6 +212,7 @@ export default function MultilineTextFields(props) {
                   variant="outlined"
                   label="Allergies"
                   placeholder="Tell us about your allergies"
+
                 />
               )}
             />
@@ -190,6 +235,7 @@ export default function MultilineTextFields(props) {
               id="margin-none"
               className={classes.textField}
               label="Clinic"
+              onChange = {handleClinic}
             />
             <div style={{ textAlign: "right", width: "90%" }}>
               <Link to="/order">
@@ -200,6 +246,7 @@ export default function MultilineTextFields(props) {
                   disableRipple
                   color="primary"
                   href="#order"
+                  onClick= {handleSubmit}
                   style={{ backgroundColor: "#2F2E40" }}
                 >
                   Next
@@ -337,3 +384,4 @@ const transportations = [
     label: "Walk",
   },
 ];
+export default MultilineTextFields
