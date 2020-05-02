@@ -349,9 +349,9 @@ export default function Order(db) {
 // Link's not working!!
   return (
     //  style={{ margin: "0 40px" }}
-    <div>
+    <div id='top'>
       <NavBar cart={currOrders} handleSubmit={handleSubmit} />
-      <div style={{ margin: "0 40px" }}>
+      <div id='nav' style={{ margin: "0 40px" }}>
         <div>
           <img src={Emptycart} style={{ justify: "center", height: "300px" }} />
         </div>
@@ -407,10 +407,13 @@ export default function Order(db) {
             </h4>
             <Divider />
 
-            <Slider {...settings} style={{ paddingBottom: "20px" }}>
+            <Slider {...settings} style={{ paddingBottom: "20px" , border: '100px'}}>
               {fpItems.map((itemArr, arrIndex) => (
                 <div className={classes.section3}>
-                  <Grid container>
+                  <Grid container
+                    margin-left='50px'
+                    padding-left='50px'>
+
                     {itemArr.map((item, objIndex) => (
                       <Grid
                         item
@@ -418,7 +421,7 @@ export default function Order(db) {
                         container
                         direction="column"
                         justify="center"
-                        alignItems="center"
+                        alignItems="center"                        
                       >
                         <img
                           src={item.img}
@@ -901,6 +904,13 @@ export default function Order(db) {
         <br/>
 
       </div>
+
+      <div align='center'> 
+        <Button variant='contained'> 
+          <Link smooth to="#top"> Top Of Page </Link>
+        </Button>
+      </div>
+
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -915,9 +925,15 @@ export default function Order(db) {
       >
         <Fade in={open}>
             <div className={Modalclasses.paper}>
+              <div>
+                <Button variant='contained' color='secondary' onClick={handleClose}>
+                  X
+                </Button>
+              </div>
+              <br/>
             <img src={Confirm} style={{ height: 150, weight: 150 }} />
-            <Typography variant="h7" id="transition-modal-title">
-              Thanks for completing the from! Your order code is {ID}
+            <Typography variant="h7" id="transition-modal-title" font-size='50px'>
+              Your Shopping Cart
             </Typography>
 
             <Typography varient="h7" id="transition-modal-description">
@@ -925,10 +941,18 @@ export default function Order(db) {
               {cart.map(item => (
                 <div>
                   <img src={item.img} style={{ height: 50, weight: 50 }} />
-                  {item.title} {item.amount}
+                  &nbsp; {item.title} {item.amount}
                 </div>
               ))}
             </Typography>
+            <div align='right' variant="contained" id='submit-btn'>
+              <Button 
+                style={{
+                  backgroundColor: "#bad7dfff"
+                }}> 
+                Submit Order 
+              </Button>
+            </div>
           </div>
         </Fade>
       </Modal>
