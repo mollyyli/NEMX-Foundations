@@ -47,13 +47,13 @@ const settings = {
 };
 
 // import data from json file
-var freshProduceItems = require('../data/fresh_produce_inventory.json');
-var meatProteinItems = require('../data/meat_and_protein_inventory.json');
-var grainsBreadsItems = require('../data/grains_and_breads_inventory.json');
-var drinksDairyItems = require('../data/drinks_and_dairy_inventory.json');
-var snacksDessertsItems = require('../data/snacks_and_desserts_inventory.json');
-var spicesCondimentsItems = require('../data/spices_and_condiments_inventory.json');
-var soupItems = require('../data/soups_inventory.json');
+var freshProduceItems
+var meatProteinItems 
+var grainsBreadsItems 
+var drinksDairyItems 
+var snacksDessertsItems
+var spicesCondimentsItems
+var soupItems 
 //console.log("Import: " + test.);
 
 // for test adding items via DB
@@ -81,11 +81,118 @@ const useModalStyles = makeStyles(theme => ({
 }));
 
 export default function Order(db) {
+
+  // var all = db.db.ref("fresh")
+  // all.on("value", function(snapshot) {
+  //   console.log(snapshot.val());
+  //   freshProduceItems = snapshot.val();
+  // })
+
+  var meat = db.db.ref("meat")
+  meat.on("value", function(snapshot) {
+    console.log(snapshot.val());
+    meatProteinItems = snapshot.val();
+  })
+
+  var drink = db.db.ref("drink")
+  drink.on("value", function(snapshot) {
+    console.log(snapshot.val());
+    drinksDairyItems = snapshot.val();
+  })
+
+
+  var grains = db.db.ref("grains")
+  grains.on("value", function(snapshot) {
+    console.log(snapshot.val());
+    grainsBreadsItems = snapshot.val();
+  })
+
+
+  var snacks = db.db.ref("snacks")
+  snacks.on("value", function(snapshot) {
+    console.log(snapshot.val());
+    snacksDessertsItems = snapshot.val();
+  })
+
+
+  var soup = db.db.ref("soup")
+  soup.on("value", function(snapshot) {
+    console.log(snapshot.val());
+    soupItems = snapshot.val();
+  })
+
+
+  var spices = db.db.ref("spices")
+  soup.on("value", function(snapshot) {
+    console.log(snapshot.val());
+    spicesCondimentsItems = snapshot.val();
+  })
+
+
+  var all = db.db.ref("fresh")
+  const [fpItems, fpUpdateItems] = useState({});
+  all.once("value").then(function(data){
+    freshProduceItems = data.val();
+    console.log(freshProduceItems)
+    fpUpdateItems(data)
+  })
+ 
+
+
   //db.db.child("/inventory").remove();
   //db.db.child("/inventory").update(freshProduceItems);
 
   // Code to extract the inventory from the database to this file
   useEffect(()=>{
+
+  var all = db.db.ref("fresh")
+  all.once("value").then(function(data){
+    freshProduceItems = data;
+    console.log(freshProduceItems)
+    fpUpdateItems(data)
+  })
+
+  // f.once("value")
+  // .then(function(snapshot) {
+  //   var key = snapshot.key; // null
+  //   var childKey = snapshot.child("users/ada").key; // "ada"
+  // });
+
+  var meat = db.db.ref("meat")
+  meat.on("value", function(snapshot) {
+    meatProteinItems = snapshot.val();
+  })
+
+  var drink = db.db.ref("drink")
+  drink.on("value", function(snapshot) {
+    drinksDairyItems = snapshot.val();
+  })
+
+
+  var grains = db.db.ref("grains")
+  grains.on("value", function(snapshot) {
+    grainsBreadsItems = snapshot.val();
+  })
+
+
+  var snacks = db.db.ref("snacks")
+  snacks.on("value", function(snapshot) {
+    snacksDessertsItems = snapshot.val();
+  })
+
+
+  var soup = db.db.ref("soup")
+  soup.on("value", function(snapshot) {
+    soupItems = snapshot.val();
+  })
+
+
+  var spices = db.db.ref("spices")
+  spices.on("value", function(snapshot) {
+    spicesCondimentsItems = snapshot.val();
+  })
+
+
     db.db.child("/inventory").on("value", function(snapshot) {
       for (var i = 0; i < snapshot.numChildren(); i++) {
         db.db.child("/inventory").child(i).on('value', function(dataSnapshot) {
@@ -115,29 +222,6 @@ export default function Order(db) {
     setOpen(false);
   };
 
-  // Fresh Produce items
-  const [fpItems, fpUpdateItems] = useState(filterItems(freshProduceItems));
-
-  // Meats and Proteins items
-  const [mpItems, mpUpdateItems] = useState(filterItems(meatProteinItems));
-
-  // Grains abd Breads items
-  const [gbItems, gbUpdateItems] = useState(filterItems(grainsBreadsItems));
-
-  // Drinks abd Dairy items
-  const [ddItems, ddUpdateItems] = useState(filterItems(drinksDairyItems));
-
-  // Snacks and Desserts items
-  const [sdItems, sdUpdateItems] = useState(filterItems(snacksDessertsItems));
-
-  // Spices and Condiments items
-  const [scItems, scUpdateItems] = useState(filterItems(spicesCondimentsItems));
-
-  // Soups items
-  const [sItems, sUpdateItems] = useState(filterItems(soupItems));
-
-  // const [cart, updateCart] = useState([]);
-  const classes = useStyles();
   function filterItems(items) {
     let cloneItems = items.slice(0);
     let results = [];
@@ -160,6 +244,31 @@ export default function Order(db) {
     return results;
   }
 
+
+  // Fresh Produce items
+
+
+  // Meats and Proteins items
+  const [mpItems, mpUpdateItems] = useState(meatProteinItems);
+
+  // Grains abd Breads items
+  const [gbItems, gbUpdateItems] = useState(grainsBreadsItems);
+
+  // Drinks abd Dairy items
+  const [ddItems, ddUpdateItems] = useState(drinksDairyItems);
+
+  // Snacks and Desserts items
+  const [sdItems, sdUpdateItems] = useState(snacksDessertsItems);
+
+  // Spices and Condiments items
+  const [scItems, scUpdateItems] = useState(spicesCondimentsItems);
+
+  // Soups items
+  const [sItems, sUpdateItems] = useState(soupItems);
+
+  // const [cart, updateCart] = useState([]);
+  const classes = useStyles();
+  
   // for fresh produce only!
   let handleRemoveFP = (arrIndex, objIndex) => {
     let cloneArr = [...fpItems];
@@ -263,7 +372,8 @@ export default function Order(db) {
     cloneArr[arrIndex][objIndex].amount += 1;
     sUpdateItems(cloneArr);
   };
-
+  console.log("ttttttttttesssssssssttttttt")
+  console.log(fpItems)
 
   // adding all items to cart for submission
   let handleSubmit = () => {
@@ -342,7 +452,7 @@ export default function Order(db) {
     console.log(cart_temp)
     console.log(db);
     ID = db.db.push(cart_temp).key;
-    
+
   };
 
 
