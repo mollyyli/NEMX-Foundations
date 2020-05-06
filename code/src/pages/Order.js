@@ -47,7 +47,7 @@ const settings = {
 };
 
 // import data from json file
-var freshProduceItems
+var freshProduceItems = require('../data/fresh_produce_inventory.json');
 var meatProteinItems = require('../data/meat_and_protein_inventory.json');
 var grainsBreadsItems = require('../data/grains_and_breads_inventory.json');
 var drinksDairyItems = require('../data/drinks_and_dairy_inventory.json');
@@ -81,32 +81,24 @@ const useModalStyles = makeStyles(theme => ({
 }));
 
 export default function Order(db) {
-  console.log(db)
-  var fresh = db.db.ref("fresh")
-  fresh.on("value", function(snapshot) {
-    console.log(snapshot.val());
-    freshProduceItems = snapshot.val();
-  })
-  console.log(freshProduceItems);
-  console.log("testtttttttt")
   //db.db.child("/inventory").remove();
   //db.db.child("/inventory").update(freshProduceItems);
-
+  console.log(db)
   // Code to extract the inventory from the database to this file
-  useEffect(()=>{
-    db.db.child("/inventory").on("value", function(snapshot) {
-      for (var i = 0; i < snapshot.numChildren(); i++) {
-        db.db.child("/inventory").child(i).on('value', function(dataSnapshot) {
+  // useEffect(()=>{
+  //   db.db.child("/inventory").on("value", function(snapshot) {
+  //     for (var i = 0; i < snapshot.numChildren(); i++) {
+  //       db.db.child("/inventory").child(i).on('value', function(dataSnapshot) {
 
-          var newItem = { title: dataSnapshot.val().title, img: dataSnapshot.val().img, 
-            amount: dataSnapshot.val().amount, quantity: dataSnapshot.val().quantity }
-          console.log(newItem);
-          freshProduceItems.push(newItem);
-          console.log("Update: " + freshProduceItems);
-        });
-      }
-    })    
-  },[db]);
+  //         var newItem = { title: dataSnapshot.val().title, img: dataSnapshot.val().img, 
+  //           amount: dataSnapshot.val().amount, quantity: dataSnapshot.val().quantity }
+  //         console.log(newItem);
+  //         freshProduceItems.push(newItem);
+  //         console.log("Update: " + freshProduceItems);
+  //       });
+  //     }
+  //   })    
+  // },[db]);
   
   //console.log("Fresh produce items: " + freshProduceItems);
   
@@ -357,9 +349,9 @@ export default function Order(db) {
 // Link's not working!!
   return (
     //  style={{ margin: "0 40px" }}
-    <div>
+    <div id='top'>
       <NavBar cart={currOrders} handleSubmit={handleSubmit} />
-      <div style={{ margin: "0 40px" }}>
+      <div id='nav' style={{ margin: "0 40px" }}>
         <div>
           <img src={Emptycart} style={{ justify: "center", height: "300px" }} />
         </div>
@@ -415,10 +407,13 @@ export default function Order(db) {
             </h4>
             <Divider />
 
-            <Slider {...settings} style={{ paddingBottom: "20px" }}>
+            <Slider {...settings} style={{ paddingBottom: "20px" , border: '100px'}}>
               {fpItems.map((itemArr, arrIndex) => (
                 <div className={classes.section3}>
-                  <Grid container>
+                  <Grid container
+                    margin-left='50px'
+                    padding-left='50px'>
+
                     {itemArr.map((item, objIndex) => (
                       <Grid
                         item
@@ -426,7 +421,7 @@ export default function Order(db) {
                         container
                         direction="column"
                         justify="center"
-                        alignItems="center"
+                        alignItems="center"                        
                       >
                         <img
                           src={item.img}
@@ -909,6 +904,13 @@ export default function Order(db) {
         <br/>
 
       </div>
+
+      <div align='center'> 
+        <Button variant='contained'> 
+          <Link smooth to="#top"> Top Of Page </Link>
+        </Button>
+      </div>
+
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -923,9 +925,15 @@ export default function Order(db) {
       >
         <Fade in={open}>
             <div className={Modalclasses.paper}>
+              <div>
+                <Button variant='contained' color='secondary' onClick={handleClose}>
+                  X
+                </Button>
+              </div>
+              <br/>
             <img src={Confirm} style={{ height: 150, weight: 150 }} />
-            <Typography variant="h7" id="transition-modal-title">
-              Thanks for completing the from! Your order code is {ID}
+            <Typography variant="h7" id="transition-modal-title" font-size='50px'>
+              Your Shopping Cart
             </Typography>
 
             <Typography varient="h7" id="transition-modal-description">
@@ -933,10 +941,18 @@ export default function Order(db) {
               {cart.map(item => (
                 <div>
                   <img src={item.img} style={{ height: 50, weight: 50 }} />
-                  {item.title} {item.amount}
+                  &nbsp; {item.title} {item.amount}
                 </div>
               ))}
             </Typography>
+            <div align='right' variant="contained" id='submit-btn'>
+              <Button 
+                style={{
+                  backgroundColor: "#bad7dfff"
+                }}> 
+                Submit Order 
+              </Button>
+            </div>
           </div>
         </Fade>
       </Modal>
@@ -950,5 +966,3 @@ let currOrders = [
     amount: 2
   }
 ];
-
-// export default Order;
