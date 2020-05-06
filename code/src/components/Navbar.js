@@ -38,7 +38,7 @@ export default function NavBar(props) {
             onClick={() => props.handleSubmit()}
           >
             <ShoppingCartIcon />{" "}
-            <span style={{ marginLeft: "5px" }}>Submit</span>
+            <span style={{ marginLeft: "5px" }}>Cart</span>
           </Button>
         </Link>
       )}

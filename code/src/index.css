@@ -13,3 +13,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* To make the arrows bigger */
+.slick-prev:before {
+  font-size: 30px;
+}
+
+.slick-next:before {
+  font-size: 30px;
+}
