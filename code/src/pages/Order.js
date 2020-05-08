@@ -96,12 +96,67 @@ export default function Order(db) {
   //   console.log(freshProduceItems)
   //   fpUpdateItems(data.val())}, [db])
     
+    // useEffect(async () => { 
+    //   const all = db.db.ref("fresh");
+    //   const data = await all.once("value");
+
+    //   fpUpdateItems(data.val());
+    //   freshProduceItems = data.val();
+
+    // }, [db]);
+    const [mpItems, mpUpdateItems] = useState([]);
+
+    // Grains abd Breads items
+    const [gbItems, gbUpdateItems] = useState([]);
+  
+    // Drinks abd Dairy items
+    const [ddItems, ddUpdateItems] = useState([]);
+  
+    // Snacks and Desserts items
+    const [sdItems, sdUpdateItems] = useState([]);
+  
+    // Spices and Condiments items
+    const [scItems, scUpdateItems] = useState([]);
+  
+    // Soups items
+    const [sItems, sUpdateItems] = useState([]);
+
+
     useEffect(async () => { 
       const all = db.db.ref("fresh");
       const data = await all.once("value");
       fpUpdateItems(data.val());
-      freshProduceItems = data.val();
+
+      var meat = db.db.ref("meat")
+      const data1 = await meat.once("value");
+      mpUpdateItems(data1.val())
+
+      var drink = db.db.ref("drink")
+      const data2 = await drink.once("value");
+      ddUpdateItems(data2.val())
+
+      var grains = db.db.ref("grains")
+      const data3 = await grains.once("value");
+      gbUpdateItems(data3.val())
+
+      var snacks = db.db.ref("snacks")
+      const data4 = await snacks.once("value");
+      sdUpdateItems(data4.val())
+
+
+      var soup = db.db.ref("soup")
+      const data5 = await soup.once("value");
+      sUpdateItems(data5.val())
+
+      // var spices = db.db.ref("spices")
+      // const data6 = await spices.once("value");
+      // scUpdateItems(data6.val())
     }, [db]);
+    console.log(fpItems)
+
+    console.log("ttttttttttesssssssssttttttt")
+    console.log(fpItems)
+    console.log(freshProduceItems)
   // // f.once("value")
   // // .then(function(snapshot) {
   // //   var key = snapshot.key; // null
@@ -199,22 +254,7 @@ export default function Order(db) {
   // const [fpItems, fpUpdateItems] = useState(freshProduceItems);
   console.log(fpItems)
   // Meats and Proteins items
-  const [mpItems, mpUpdateItems] = useState(meatProteinItems);
 
-  // Grains abd Breads items
-  const [gbItems, gbUpdateItems] = useState(grainsBreadsItems);
-
-  // Drinks abd Dairy items
-  const [ddItems, ddUpdateItems] = useState(drinksDairyItems);
-
-  // Snacks and Desserts items
-  const [sdItems, sdUpdateItems] = useState(snacksDessertsItems);
-
-  // Spices and Condiments items
-  const [scItems, scUpdateItems] = useState(spicesCondimentsItems);
-
-  // Soups items
-  const [sItems, sUpdateItems] = useState(soupItems);
 
   // const [cart, updateCart] = useState([]);
   const classes = useStyles();
@@ -322,9 +362,7 @@ export default function Order(db) {
     cloneArr[arrIndex][objIndex].amount += 1;
     sUpdateItems(cloneArr);
   };
-  console.log("ttttttttttesssssssssttttttt")
-  console.log(fpItems)
-  console.log(freshProduceItems)
+
 
   // adding all items to cart for submission
   let handleSubmit = () => {

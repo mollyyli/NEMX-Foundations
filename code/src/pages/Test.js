@@ -7,6 +7,7 @@ export default function Test(db) {
     const data = await all.once("value");
     fpUpdateItems(data.val());
   }, [db]);
+  console.log("asdasdasdasd")
   console.log(fpItems)
   return (
     <div>
