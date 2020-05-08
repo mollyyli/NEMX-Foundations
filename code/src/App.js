@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import logo from "./pics/logo.svg";
 import "./App.css";
+import Test from "./pages/Test";
 //import 'bootstrap/dist/css/bootstrap.min.css';
 //import { Form } from 'react-bootstrap';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -19,6 +20,7 @@ const App = ({db}) => {
     <Router>
       <div className="App">
         <Switch>    
+          <Route path="/test" exact component={() => <Test db={db} />} />
           <Route path="/" exact component={() => <Preferences db = {db} />} />
           <Route path="/order" exact component={() => <Order db = {db} />} />
           <Route path="/admin" component={Admin} />
