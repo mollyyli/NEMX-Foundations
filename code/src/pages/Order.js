@@ -266,7 +266,7 @@ export default function Order(db) {
 
 
   // adding all items to cart for submission
-  let handleSubmit = () => {
+  let handleCart = () => {
     let cart = [];
 
     // add fresh produce order to the cart
@@ -334,23 +334,106 @@ export default function Order(db) {
 
     setCart(cart);
     setOpen(true);
-    console.log(cart);
+    
+    // console.log(cart);
+    
     var cart_temp = {};
     for ( let i = 0; i < cart.length; i++) {
       cart_temp[cart[i]["title"]] = cart[i]["amount"]
     }
-    console.log(cart_temp)
-    console.log(db);
-    ID = db.db.push(cart_temp).key;
-    
+
   };
+
+
+  // handles submission of order
+  let handleSubmit = () => {
+
+    let cart = [];
+
+    // add fresh produce order to the cart
+    fpItems.map(arr => {
+      arr.map(item => {
+        if (item.amount !== 0) {
+          cart.push(item);
+        }
+      });
+    });
+
+    // add meats and proteins order to the cart
+    mpItems.map(arr => {
+      arr.map(item => {
+        if (item.amount !== 0) {
+          cart.push(item);
+        }
+      });
+    });
+
+    // add grains and breads order to the cart
+    gbItems.map(arr => {
+      arr.map(item => {
+        if (item.amount !== 0) {
+          cart.push(item);
+        }
+      });
+    });
+
+    // add drinks and dairy order to the cart
+    ddItems.map(arr => {
+      arr.map(item => {
+        if (item.amount !== 0) {
+          cart.push(item);
+        }
+      });
+    });
+
+    // add snacks and desserts order to the cart
+    sdItems.map(arr => {
+      arr.map(item => {
+        if (item.amount !== 0) {
+          cart.push(item);
+        }
+      });
+    });
+
+    // add spices and condiments order to the cart
+    scItems.map(arr => {
+      arr.map(item => {
+        if (item.amount !== 0) {
+          cart.push(item);
+        }
+      });
+    });
+
+    // add soups order to the cart
+    sItems.map(arr => {
+      arr.map(item => {
+        if (item.amount !== 0) {
+          cart.push(item);
+        }
+      });
+    });
+
+    setCart(cart);
+    setOpen(true);
+    
+    // console.log(cart);
+    
+    var cart_temp = {};
+    for ( let i = 0; i < cart.length; i++) {
+      cart_temp[cart[i]["title"]] = cart[i]["amount"]
+    }
+    
+    // console.log(cart_temp)
+    // console.log(db);
+    ID = db.db.push(cart_temp).key;
+  }
 
 
 // Link's not working!!
   return (
     //  style={{ margin: "0 40px" }}
     <div id='top'>
-      <NavBar cart={currOrders} handleSubmit={handleSubmit} />
+      <NavBar cart={currOrders} handleCart={handleCart} />
       <div id='nav' style={{ margin: "0 40px" }}>
         <div>
           <img src={Emptycart} style={{ justify: "center", height: "300px" }} />
@@ -941,12 +1024,13 @@ export default function Order(db) {
               {cart.map(item => (
                 <div>
                   <img src={item.img} style={{ height: 50, weight: 50 }} />
-                  &nbsp; {item.title} {item.amount}
+                  &nbsp; {item.title} {item.amount} <br /> <br />
                 </div>
+                
               ))}
             </Typography>
             <div align='right' variant="contained" id='submit-btn'>
-              <Button 
+              <Button onClick={handleSubmit}
                 style={{
                   backgroundColor: "#bad7dfff"
                 }}> 

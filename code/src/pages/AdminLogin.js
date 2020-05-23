@@ -56,7 +56,7 @@ export default function CustomizedInputBase() {
               <Button variant="contained" color="primary" fullWidth='true' 
                 style={{ backgroundColor: "#2F2E40" }}>
                 <text className={classes.logInText}>
-                  NOT ADMIN LOGIN PAGE
+                  Log In
                 </text>
               </Button>
             </div>

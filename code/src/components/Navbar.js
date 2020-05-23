@@ -16,7 +16,7 @@ export default function NavBar(props) {
         <img src={logo} style={{ width: 140, height: 90 }} />
       </Nav.Link>
       {/* <div flexDirection="row-reverse" justifyContent="flex-end"> */}
-      <Link to="/admin">
+      <Link to="/adminlogin">
         <span style={{ color: "#2F2E40" }}>Admin</span>
       </Link>
       <Link
@@ -35,7 +35,7 @@ export default function NavBar(props) {
           <Button
             variant="contained"
             style={{ backgroundColor: "#2F2E4010" }}
-            onClick={() => props.handleSubmit()}
+            onClick={() => props.handleCart()}
           >
             <ShoppingCartIcon />{" "}
             <span style={{ marginLeft: "5px" }}>Cart</span>
